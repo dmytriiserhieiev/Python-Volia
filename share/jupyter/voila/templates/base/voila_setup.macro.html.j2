@@ -1,0 +1,14 @@
+{%- macro voila_setup(base_url, nbextensions) -%}
+<script>
+requirejs.config({ baseUrl: '{{base_url}}voila/', waitSeconds: 30})
+window.voila_js_url = "{{ static_url('voila.js')}}"
+requirejs(
+    [
+        "{{ static_url('main.js') }}",
+    {% for ext in nbextensions -%}
+        "{{base_url}}voila/nbextensions/{{ ext }}.js",
+    {% endfor %}
+    ]
+)
+</script>
+{%- endmacro %}
